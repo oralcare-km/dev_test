@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: SSHしてgit pull & dev_test内を同期
+      - name: SSHしてgit pull
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -18,14 +18,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            # 1. 対象のリポジトリディレクトリに移動
-            cd /home/oralcare-web/www/redirect
-
-            # 2. 最新のコードを取得
-            git fetch origin main
-            git reset --hard origin/main
-
-            # 3. dev_test ディレクトリ配下のファイル・サブフォルダのみを作業ディレクトリ直下に同期
-            if [ -d "dev_test" ]; then
-              rsync -av --exclude='.git' dev_test/ ./
-            fi
+            cd /home/oralcare-web/www/dev
+            git pull origin main
