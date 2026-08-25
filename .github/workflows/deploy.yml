@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - main
+      - develop
 
 jobs:
   deploy:
@@ -18,5 +18,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            cd /home/oralcare-web/www/redirect
-            git pull origin main
+            cd /home/oralcare-web/www/dev
+            git pull origin develop
